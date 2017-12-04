@@ -16,7 +16,7 @@ import turtle
 
 class NimBoard:
     """
-
+    This class manages the visual game board for playing Nim
     """
     def __init__(self):
         # self.piles = 0
@@ -106,22 +106,31 @@ class NimBoard:
 
 class ComAI:
     """
-
+    This class will manage the computer AI's move set during Nim game play
     """
     def __init__(self):
         self.gamemode = "normal"
 
 
 class GamePlay:
+    """
+    This class manages the active game play elements of Nim
+    """
     def __init__(self):
         self.gamemode = "normal"
 
     def game_select(self):
+        """
+        This function prompts the user to indicate which version (rule set) of
+        Nim they wish to play
+        :return: self.gamemode; the selected game mode to play
+        """
         game_mode = input(print("Which game mode would you like to play(normal)(misery)?"))
         while game_mode != "normal" or "misery":
             game_mode = input(print("That is not a valid game mode! Select (normal) or (misery)"))
         else:
             self.gamemode = game_mode
+            return self.gamemode
 
 
 def main():
