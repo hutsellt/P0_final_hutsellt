@@ -19,5 +19,129 @@ class NimBoard:
 
     """
     def __init__(self):
-        self.piles = 0
+        # self.piles = 0
         self.objects = 0
+
+    def calculate_size(self, num_dots):
+        """
+        This function takes the user input (num_dots) and calculates the best
+        display to make a square shape (equal number of dots across and down)
+        :param num_dots: The chosen number of dots to display
+        :return: Number of dots across, number of dots down (width, height)
+        """
+        self.objects = num_dots
+        square = sqrt(self.objects)
+        if self.objects % square == 0:
+            return int(square), int(square)
+        else:
+            denom = self.objects // sqrt(self.objects)
+            while self.objects % denom != 0:
+                denom -= 1
+            return int(denom), int(self.objects // denom)
+
+    def is_valid_size(self, dot_width, dot_height, distance, screen_width, screen_height):
+        """
+        This function tests if the chosen number of dots, a chosen number of
+        pixels apart, will fit on the maximum screen size as set values.
+        :param dot_width: Calculate number of dots across (width)
+        :param dot_height: Calculated number of dots down (height)
+        :param distance: The maximum distance across that the dots are displayed
+        :param screen_width: The set width of the Turtle Screen
+        :param screen_height: The set height of the Turtle Screen
+        :return: True if the dots will fit on the screen or False if dots will not
+        """
+        if dot_width * distance > screen_width or dot_height * distance > screen_height:
+            return False
+        return True
+
+    def draw_board(self, dot_distance, dottie, height, width):
+        """
+        This function draws the "game board" the square shape formed by the dots
+        :param dot_distance: The screen width (maximum width of "square")
+        :param dottie: Our turtle object
+        :param height: Calculated height of dot "square"
+        :param width: Calculated width of dot "square"
+        :return: None
+        """
+        for y in range(height):
+            for i in range(width):
+                dottie.dot()
+                dottie.forward(dot_distance)
+            dottie.backward(dot_distance * width)
+            dottie.right(90)
+            dottie.forward(dot_distance)
+            dottie.left(90)
+
+    def user_input(self, screen_height, screen_width):
+        """
+        This function takes user input, asking for how many dots they would like,
+        it then feeds this number into the calculate_size() function to fit
+        the dots into a square or rectangular shape of even filled rows.
+        It then asks the user how many pixels apart they would like the dots,
+        and runs that number in the is_valid_size function().
+        :param screen_height: The set height of the turtle window
+        :param screen_width: The set width of the turtle window
+        :return: Values for dot_distance (The spacing between dots),
+        height (The number of dots up and down),
+        and width (The number of dots across)
+        """
+        num_dots = "x"
+        print("Welcome to the game of Nim!")
+        while not num_dots.isnumeric():
+            num_dots = input("How many dots do you want to play with? ")
+        num_dots = int(num_dots)
+        (width, height) = self.calculate_size(num_dots)
+        dot_distance = screen_width
+        first = False
+        while not self.is_valid_size(width, height, dot_distance, screen_width, screen_height):
+            if first:
+                print("That won't fit on the screen; pick a smaller number")
+            dot_distance = input("How far apart are the dots? ")
+            while not dot_distance.isnumeric():
+                dot_distance = input("Let's try an integer instead. \nHow far apart are the dots? ")
+            first = True
+            dot_distance = int(dot_distance)
+        return dot_distance, height, width
+
+
+class ComAI:
+    """
+
+    """
+    def __init__(self):
+        self.gamemode = "normal"
+
+
+class GamePlay:
+    def __init__(self):
+        self.gamemode = "normal"
+
+    def game_select(self):
+        game_mode = input(print("Which game mode would you like to play(normal)(misery)?"))
+        while game_mode != "normal" or "misery":
+            game_mode = input(print("That is not a valid game mode! Select (normal) or (misery)"))
+        else:
+            self.gamemode = game_mode
+
+
+def main():
+    wn = turtle.Screen()
+    screen_width = 1100
+    screen_height = 650
+    wn.setup(width=screen_width, height=screen_height, startx=0, starty=0)
+
+    dottie = turtle.Turtle()
+    dottie.penup()
+    dottie.setpos(-(screen_width/2-50), screen_height/2-25)
+
+    board = NimBoard()
+    (dot_distance, height, width) = board.user_input(screen_height, screen_width)
+    board.draw_board(dot_distance, dottie, height, width)
+    dottie.hideturtle()
+
+    wn.exitonclick()
+
+
+if __name__ == "__main__":
+    main()
+
