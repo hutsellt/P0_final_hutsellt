@@ -138,7 +138,7 @@ class ComAI:
         elif d % 5 == 0:
             com_take = 4
         else:
-            com_take = random.randint(1, balls)
+            com_take = random.randint(1, balls-4)
         return com_take
 
 
@@ -162,6 +162,30 @@ class GamePlay:
     #        else:
     #            print("You must select a valid game mode:(normal)(misery)")
     #    return self.gamemode
+
+    def play_nim(balls):
+        """
+        This function will provide the general code for the game Nim,
+        calling the functions that handle players' turns. The function will monitor
+        that total number of balls during game play, and declare a winner when
+        a player has taken the last ball.
+        :param balls: The total balls the game begins with is needed for playing
+        the game.
+        :return: None
+        """
+        while balls > 0:
+            balls = balls - user_pick()
+            if balls <= 0:
+                print("Congratulations! You win!")
+                break
+            print("The total of balls remaining is " + str(balls))
+            print("Time for the computer's turn!")
+            balls = balls - ComAI.com_pick_normal(balls)
+            if balls <= 0:
+                print("Sorry! The computer wins!")
+            print("The total of balls remaining is " + str(balls))
+        else:
+            print("Thank you for playing the game of Nim!")
 
 
 def main():
