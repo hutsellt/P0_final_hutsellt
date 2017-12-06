@@ -38,7 +38,7 @@ def user_pick():
 
 def com_pick(balls):
     """
-    This si the function that will handle the computer's turn. It will
+    This is the function that will handle the computer's turn. It will
     hopefully be optimized so that the computer will win whenever possible.
     :param balls: This input is necessary for the current total of balls in
     play.

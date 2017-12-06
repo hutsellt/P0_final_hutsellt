@@ -111,6 +111,36 @@ class ComAI:
     def __init__(self):
         self.gamemode = "normal"
 
+    def com_pick_normal(self, balls):
+        """
+        This is the function that will handle the computer's turn. It will
+        hopefully be optimized so that the computer will win whenever possible.
+        :param balls: This input is necessary for the current total of balls in
+        play.
+        :return: com_take
+        """
+        # Because the computer decision making is based on code alone, it will be
+        # more complex than the user's.
+        a = (balls - 1)
+        b = (balls - 2)
+        c = (balls - 3)
+        d = (balls - 4)
+        # It is the computers best strategy to leave a number of balls divisible
+        # by 5 when possible. This code checks for that possibility and chooses
+        # thus, otherwise picks randomly as it will not matter until the user
+        # makes a mistake. Credit: Scott Heggen's tip in A5
+        if a % 5 == 0:
+            com_take = 1
+        elif b % 5 == 0:
+            com_take = 2
+        elif c % 5 == 0:
+            com_take = 3
+        elif d % 5 == 0:
+            com_take = 4
+        else:
+            com_take = random.randint(1, balls)
+        return com_take
+
 
 class GamePlay:
     """
@@ -119,18 +149,19 @@ class GamePlay:
     def __init__(self):
         self.gamemode = "normal"
 
-    def game_select(self):
-        """
-        This function prompts the user to indicate which version (rule set) of
-        Nim they wish to play
-        :return: self.gamemode; the selected game mode to play
-        """
-        game_mode = input(print("Which game mode would you like to play(normal)(misery)?"))
-        while game_mode != "normal" or "misery":
-            game_mode = input(print("That is not a valid game mode! Select (normal) or (misery)"))
-        else:
-            self.gamemode = game_mode
-            return self.gamemode
+    # def game_select(self):
+    #    """
+    #    This function prompts the user to indicate which version (rule set) of
+    #    Nim they wish to play
+    #    :return: self.gamemode; the selected game mode to play
+    #    """
+    #    while True:
+    #        self.gamemode = input(print("Which game mode would you like to play(normal)(misery)?"))
+    #        if self.gamemode is "normal" or "misery":
+    #            break
+    #        else:
+    #            print("You must select a valid game mode:(normal)(misery)")
+    #    return self.gamemode
 
 
 def main():
@@ -148,7 +179,7 @@ def main():
     board.draw_board(dot_distance, dottie, height, width)
     dottie.hideturtle()
 
-    wn.exitonclick()
+    new_game = GamePlay()
 
 
 if __name__ == "__main__":
