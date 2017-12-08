@@ -12,6 +12,7 @@
 import random
 from math import sqrt
 import turtle
+global num_dots
 
 
 class NimBoard:
@@ -85,6 +86,7 @@ class NimBoard:
         height (The number of dots up and down),
         and width (The number of dots across)
         """
+        global num_dots
         num_dots = "x"
         print("Welcome to the game of Nim!")
         while not num_dots.isnumeric():
@@ -111,7 +113,7 @@ class ComAI:
     def __init__(self):
         self.gamemode = "normal"
 
-    def com_pick_normal(self, balls):
+    def com_pick_normal(self):
         """
         This is the function that will handle the computer's turn. It will
         hopefully be optimized so that the computer will win whenever possible.
@@ -121,10 +123,10 @@ class ComAI:
         """
         # Because the computer decision making is based on code alone, it will be
         # more complex than the user's.
-        a = (balls - 1)
-        b = (balls - 2)
-        c = (balls - 3)
-        d = (balls - 4)
+        a = (num_dots - 1)
+        b = (num_dots - 2)
+        c = (num_dots - 3)
+        d = (num_dots - 4)
         # It is the computers best strategy to leave a number of balls divisible
         # by 5 when possible. This code checks for that possibility and chooses
         # thus, otherwise picks randomly as it will not matter until the user
@@ -138,7 +140,7 @@ class ComAI:
         elif d % 5 == 0:
             com_take = 4
         else:
-            com_take = random.randint(1, balls-4)
+            com_take = random.randint(1, num_dots-4)
         return com_take
 
 
@@ -169,8 +171,6 @@ class GamePlay:
         calling the functions that handle players' turns. The function will monitor
         that total number of balls during game play, and declare a winner when
         a player has taken the last ball.
-        :param balls: The total balls the game begins with is needed for playing
-        the game.
         :return: None
         """
         wn = turtle.Screen()
@@ -187,17 +187,17 @@ class GamePlay:
         board.draw_board(dot_distance, dottie, height, width)
         dottie.hideturtle()
 
-        # while balls > 0:
-        #    balls = balls - user_pick()
-        #    if balls <= 0:
+        # while num_dots > 0:
+        #    num_dots = num_dots - user_pick()
+        #    if num_dots <= 0:
         #        print("Congratulations! You win!")
         #        break
-        #    print("The total of balls remaining is " + str(balls))
+        #    print("The total of dots remaining is " + str(num_dots))
         #    print("Time for the computer's turn!")
-        #    balls = balls - ComAI.com_pick_normal(balls)
-        #    if balls <= 0:
+        #    num_dots = num_dots - ComAI.com_pick_normal(num_dots)
+        #    if num_dots <= 0:
         #        print("Sorry! The computer wins!")
-        #    print("The total of balls remaining is " + str(balls))
+        #    print("The total of dots remaining is " + str(num_dots))
         # else:
         #    print("Thank you for playing the game of Nim!")
 
