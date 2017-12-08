@@ -18,9 +18,10 @@ class NimBoard:
     """
     This class manages the visual game board for playing Nim
     """
-    def __init__(self):
+    def __init__(self, mode):
         # self.piles = 0
         self.objects = 0
+        self.gamemode = mode
 
     def calculate_size(self, num_dots):
         """
@@ -156,9 +157,9 @@ class GamePlay:
     #    :return: self.gamemode; the selected game mode to play
     #    """
     #    while True:
-    #        self.gamemode = input(print("Which game mode would you like to play(normal)(misery)?"))
+    #        self.gamemode = input("Which game mode would you like to play(normal)(misery)?")
     #        if self.gamemode is "normal" or "misery":
-    #            break
+    #            self.new_game = Nim_board(self.gamemode)
     #        else:
     #            print("You must select a valid game mode:(normal)(misery)")
     #    return self.gamemode
