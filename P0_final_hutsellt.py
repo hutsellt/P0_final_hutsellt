@@ -144,6 +144,26 @@ class ComAI:
         return com_take
 
 
+class Player:
+    """ This class manages the player's turn when playing Nim against the AI
+    """
+    def __init__(self):
+        self.gamemode = "normal"
+
+    def user_pick(self):
+        """
+        This is the function that will be referred to for the user player's turn.
+        It will ask for input of their choice of number of balls to remove.
+        :return: play_take
+        """
+        play_take = int(input("How many dots would you like to remove?(1-4)"))
+        while 1 <= play_take <= 4:
+            return play_take
+        else:
+            print("You may only take between 1 and 4 balls")
+            self.user_pick()
+
+
 class GamePlay:
     """
     This class manages the active game play elements of Nim
