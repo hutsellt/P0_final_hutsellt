@@ -121,6 +121,7 @@ class ComAI:
         play.
         :return: com_take
         """
+        global num_dots
         # Because the computer decision making is based on code alone, it will be
         # more complex than the user's.
         a = (num_dots - 1)
@@ -207,19 +208,23 @@ class GamePlay:
         board.draw_board(dot_distance, dottie, height, width)
         dottie.hideturtle()
 
-        # while num_dots > 0:
-        #    num_dots = num_dots - user_pick()
-        #    if num_dots <= 0:
-        #        print("Congratulations! You win!")
-        #        break
-        #    print("The total of dots remaining is " + str(num_dots))
-        #    print("Time for the computer's turn!")
-        #    num_dots = num_dots - ComAI.com_pick_normal(num_dots)
-        #    if num_dots <= 0:
-        #        print("Sorry! The computer wins!")
-        #    print("The total of dots remaining is " + str(num_dots))
-        # else:
-        #    print("Thank you for playing the game of Nim!")
+        player = Player()
+        french_pigeons = ComAI()  # This is my hidden easter egg for Scott
+        global num_dots
+
+        while num_dots > 0:
+            num_dots = num_dots - player.user_pick()
+            if num_dots <= 0:
+                print("Congratulations! You win!")
+                break
+            print("The total of dots remaining is " + str(num_dots))
+            print("Time for the computer's turn!")
+            num_dots = num_dots - french_pigeons.com_pick_normal()
+            if num_dots <= 0:
+                print("Sorry! The computer wins!")
+            print("The total of dots remaining is " + str(num_dots))
+        else:
+            print("Thank you for playing the game of Nim!")
 
 
 def main():
