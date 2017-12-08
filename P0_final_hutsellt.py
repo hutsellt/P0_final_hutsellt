@@ -18,10 +18,9 @@ class NimBoard:
     """
     This class manages the visual game board for playing Nim
     """
-    def __init__(self, mode):
+    def __init__(self):
         # self.piles = 0
         self.objects = 0
-        self.gamemode = mode
 
     def calculate_size(self, num_dots):
         """
@@ -164,7 +163,7 @@ class GamePlay:
     #            print("You must select a valid game mode:(normal)(misery)")
     #    return self.gamemode
 
-    def play_nim(balls):
+    def play_nim(self):
         """
         This function will provide the general code for the game Nim,
         calling the functions that handle players' turns. The function will monitor
@@ -174,38 +173,38 @@ class GamePlay:
         the game.
         :return: None
         """
-        while balls > 0:
-            balls = balls - user_pick()
-            if balls <= 0:
-                print("Congratulations! You win!")
-                break
-            print("The total of balls remaining is " + str(balls))
-            print("Time for the computer's turn!")
-            balls = balls - ComAI.com_pick_normal(balls)
-            if balls <= 0:
-                print("Sorry! The computer wins!")
-            print("The total of balls remaining is " + str(balls))
-        else:
-            print("Thank you for playing the game of Nim!")
+        wn = turtle.Screen()
+        screen_width = 1100
+        screen_height = 650
+        wn.setup(width=screen_width, height=screen_height, startx=0, starty=0)
+
+        dottie = turtle.Turtle()
+        dottie.penup()
+        dottie.setpos(-(screen_width/2-50), screen_height/2-25)
+
+        board = NimBoard()
+        (dot_distance, height, width) = board.user_input(screen_height, screen_width)
+        board.draw_board(dot_distance, dottie, height, width)
+        dottie.hideturtle()
+
+        # while balls > 0:
+        #    balls = balls - user_pick()
+        #    if balls <= 0:
+        #        print("Congratulations! You win!")
+        #        break
+        #    print("The total of balls remaining is " + str(balls))
+        #    print("Time for the computer's turn!")
+        #    balls = balls - ComAI.com_pick_normal(balls)
+        #    if balls <= 0:
+        #        print("Sorry! The computer wins!")
+        #    print("The total of balls remaining is " + str(balls))
+        # else:
+        #    print("Thank you for playing the game of Nim!")
 
 
 def main():
-    wn = turtle.Screen()
-    screen_width = 1100
-    screen_height = 650
-    wn.setup(width=screen_width, height=screen_height, startx=0, starty=0)
-
-    dottie = turtle.Turtle()
-    dottie.penup()
-    dottie.setpos(-(screen_width/2-50), screen_height/2-25)
-
-    board = NimBoard()
-    (dot_distance, height, width) = board.user_input(screen_height, screen_width)
-    board.draw_board(dot_distance, dottie, height, width)
-    dottie.hideturtle()
-
     new_game = GamePlay()
-
+    new_game.play_nim()
 
 if __name__ == "__main__":
     main()
