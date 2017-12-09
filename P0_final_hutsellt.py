@@ -105,6 +105,20 @@ class NimBoard:
             dot_distance = int(dot_distance)
         return dot_distance, height, width
 
+    def board_change(self, dot_distance):
+        """
+        This function takes the number of dots after each player turn,
+        it then feeds this number into the calculate_size() function to fit
+        the dots into a square or rectangular shape of even filled rows.
+        :param dot_distance: The spacing between dots, chosen at game creation
+        :return: Values for dot_distance (The spacing between dots),
+        height (The number of dots up and down),
+        and width (The number of dots across)
+        """
+        global num_dots
+        (width, height) = self.calculate_size(num_dots)
+        return dot_distance, height, width
+
 
 class ComAI:
     """
@@ -218,11 +232,16 @@ class GamePlay:
                 print("Congratulations! You win!")
                 break
             print("The total of dots remaining is " + str(num_dots))
+            (dot_distance, height, width) = board.board_change(dot_distance)
+            board.draw_board(dot_distance, dottie, height, width)
             print("Time for the computer's turn!")
             num_dots = num_dots - french_pigeons.com_pick_normal()
             if num_dots <= 0:
                 print("Sorry! The computer wins!")
+                break
             print("The total of dots remaining is " + str(num_dots))
+            (dot_distance, height, width) = board.board_change(dot_distance)
+            board.draw_board(dot_distance, dottie, height, width)
         else:
             print("Thank you for playing the game of Nim!")
 
