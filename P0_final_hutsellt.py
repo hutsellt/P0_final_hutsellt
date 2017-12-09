@@ -155,7 +155,7 @@ class ComAI:
         elif d % 5 == 0:
             com_take = 4
         else:
-            com_take = random.randint(1, num_dots-4)
+            com_take = random.randint(1, 4)
         return com_take
 
 
@@ -233,6 +233,8 @@ class GamePlay:
                 break
             print("The total of dots remaining is " + str(num_dots))
             (dot_distance, height, width) = board.board_change(dot_distance)
+            dottie.clear()  # necessary to avoid compounding total dots
+            dottie.setpos(-(screen_width/2-50), screen_height/2-25)  # clear does not reset pos
             board.draw_board(dot_distance, dottie, height, width)
             print("Time for the computer's turn!")
             num_dots = num_dots - french_pigeons.com_pick_normal()
@@ -241,6 +243,8 @@ class GamePlay:
                 break
             print("The total of dots remaining is " + str(num_dots))
             (dot_distance, height, width) = board.board_change(dot_distance)
+            dottie.clear()  # necessary to avoid compounding total dots
+            dottie.setpos(-(screen_width/2-50), screen_height/2-25)  # clear does not reset pos
             board.draw_board(dot_distance, dottie, height, width)
         else:
             print("Thank you for playing the game of Nim!")
