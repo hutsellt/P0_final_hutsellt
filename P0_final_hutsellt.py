@@ -171,12 +171,14 @@ class Player:
         It will ask for input of their choice of number of balls to remove.
         :return: play_take
         """
-        play_take = int(input("How many dots would you like to remove?(1-4)"))
-        while 1 <= play_take <= 4:
-            return play_take
-        else:
-            print("You may only take between 1 and 4 balls")
-            self.user_pick()
+        player_taking = True
+        while player_taking:
+            play_take = int(input("How many dots would you like to remove?(1-4)"))
+            if not 1 <= play_take <= 4:
+                print("You may only take between 1 and 4 balls")
+            else:
+                player_taking = False
+        return play_take
 
 
 class GamePlay:
